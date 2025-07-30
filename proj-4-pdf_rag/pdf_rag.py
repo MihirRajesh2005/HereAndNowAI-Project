@@ -20,25 +20,34 @@ with open(pdf_path, "wb") as pdf_file:
     pdf_file.write(response.content)
 
 try:
-  with open(pdf_path, "rb") as pdf_file:
-    reader = PyPDF2.PdfReader(pdf_file)
-    pdf_text_chunks = []
-    for page in reader.pages:
-      page_text = page.extract_text()
-      if page_text:
-        pdf_text_chunks.append(page_text)
-    pdf_context = "\n".join(pdf_text_chunks) if pdf_text_chunks else "No text found in PDF."
+    with open(pdf_path, "rb") as pdf_file:
+        reader = PyPDF2.PdfReader(pdf_file)
+        pdf_text_chunks = []
+        for page in reader.pages:
+            page_text = page.extract_text()
+            if page_text:
+                pdf_text_chunks.append(page_text)
+        pdf_context = (
+            "\n".join(pdf_text_chunks) if pdf_text_chunks else "No text found in PDF."
+        )
 except Exception as e:
-  print(f"Error reading PDF file: {e}")
-  pdf_context = "Error reading PDF file."
+    print(f"Error reading PDF file: {e}")
+    pdf_context = "Error reading PDF file."
+
 
 def get_response(message, history):
-  messages = [{"role": "system",
-               "content": f"""You are Caramel AI, built by Here and Now AI.
-                 Respond to the user's queries **only** with information from {pdf_context}."""}]
-  messages.extend(history)
-  messages.append({"role": "user", "content": message})
-  response = client.chat.completions.create(
-    model=model,
-    messages=messages).choices[0].message.content
-  return response
+    messages = [
+        {
+            "role": "system",
+            "content": f"""You are Caramel AI, built by Here and Now AI.
+                 Respond to the user's queries **only** with information from {pdf_context}.""",
+        }
+    ]
+    messages.extend(history)
+    messages.append({"role": "user", "content": message})
+    response = (
+        client.chat.completions.create(model=model, messages=messages)
+        .choices[0]
+        .message.content
+    )
+    return response

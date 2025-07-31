@@ -6,3 +6,4 @@ PyPDF2
 langchain
 langchain-google-genai
 langchain-community
+langchain-openai

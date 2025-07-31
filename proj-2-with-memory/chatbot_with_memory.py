@@ -4,11 +4,10 @@ import os
 from prompts import ai_motivational_speaker
 
 load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
-model = "gemini-2.5-flash-lite"
-base_url = "https://generativelanguage.googleapis.com/v1beta/openai"
+api_key = os.getenv("openai_token")
+model = "gpt-4.1-nano-2025-04-14"
 
-client = OpenAI(base_url=base_url, api_key=api_key)
+client = OpenAI(api_key=api_key)
 ai_motivational_speaker = ai_motivational_speaker
 
 

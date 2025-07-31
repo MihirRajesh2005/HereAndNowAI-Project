@@ -5,11 +5,10 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
-base_url = "https://generativelanguage.googleapis.com/v1beta/openai/"
-model = "gemini-2.5-flash"
+api_key = os.getenv("openai_token")
+model = "gpt-4.1-nano-2025-04-14"
 
-client = OpenAI(api_key=api_key, base_url=base_url)
+client = OpenAI(api_key=api_key)
 
 url = """https://raw.githubusercontent.com/hereandnowai/sathyabama-be-cse-ai-pt1-07-2025-hands-on-professional-training-on-genai-and-ai-agents/main/general-profile-of-hereandnowai.pdf"""
 response = requests.get(url)

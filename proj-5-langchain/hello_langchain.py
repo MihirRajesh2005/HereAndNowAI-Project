@@ -1,10 +1,10 @@
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
-google_api_key = os.getenv("GEMINI_API_KEY")
-model = "gemini-2.5-flash-lite"
+google_api_key = os.getenv("openai_token")
+model = "gpt-4.1-nano-2025-04-14"
 
 def run_langchain():
   """
@@ -12,7 +12,7 @@ def run_langchain():
   Invoke it with a simple prompt.
   Prints the model's response.
   """
-  llm = ChatGoogleGenerativeAI(
+  llm = ChatOpenAI(
       model=model,
       api_key=google_api_key,
   )

@@ -1,5 +1,5 @@
 from langchain_community.document_loaders import WebBaseLoader
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain import hub
 from langchain.tools import tool
@@ -8,8 +8,8 @@ import os
 import ast
 
 load_dotenv()
-google_api_key = os.getenv("GEMINI_API_KEY")
-model = "gemini-2.5-flash-lite"
+google_api_key = os.getenv("openai_token")
+model = "gpt-4.1-nano-2025-04-14"
 
 @tool
 def web_scrap(urls: str) -> str:
@@ -43,7 +43,7 @@ def ai_agent():
     """
     Creates and runs an agent that can use the web_scrap tool.
     """
-    llm = ChatGoogleGenerativeAI(model=model, google_api_key=google_api_key)
+    llm = ChatOpenAI(model=model, google_api_key=google_api_key)
     tool  = [web_scrap]
     prompt = hub.pull("hwchase17/react")
     agent = create_react_agent(llm, tool, prompt=prompt)

@@ -3,11 +3,10 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
-model = "gemini-2.5-flash"
-base_url = "https://generativelanguage.googleapis.com/v1beta/openai"
+api_key = os.getenv("openai_token")
+model = "gpt-4.1-nano-2025-04-14"
 
-client = OpenAI(base_url=base_url, api_key=api_key)
+client = OpenAI(api_key=api_key)
 ai_teacher = """You are Caramel AI, an AI Teacher at HERE AND NOW AI - Artificial Intelligence Research Institute.
                         Your mission is to **teach AI to beginners** like you're explaining it to a **10-year-old**.
                         Always be **clear**, **simple**, and **direct**. Use **short sentences** and **avoid complex words**.

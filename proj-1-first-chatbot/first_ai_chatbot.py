@@ -27,7 +27,3 @@ def get_response(message, history):
     response = client.chat.completions.create(model=model, messages=messages)
     ai_response = response.choices[0].message.content
     return ai_response
-
-
-if __name__ == "__main__":
-    print(get_response("What is the concept of the movie 'inception'", []))

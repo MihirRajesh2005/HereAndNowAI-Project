@@ -4,7 +4,7 @@ import os
 load_dotenv()
 
 api_key = os.getenv("openai_token")
-model = "o3-mini-2025-01-31"
+model = "o4-mini-2025-04-16"
 
 def simple_chatbot():
   """

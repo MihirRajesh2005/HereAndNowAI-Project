@@ -33,7 +33,10 @@ def data_retreival():
     check_every_n_seconds=0.5, 
     max_bucket_size=3
   )
-  llm = ChatOpenAI(model=model, api_key=api_key)
+  llm = ChatOpenAI(model=model, 
+                   api_key=api_key, 
+                   request_timeout=120, 
+                   rate_limiter=rate_limiter)
   tool = [get_fact]
   prompt = hub.pull("hwchase17/react")
   agent = create_react_agent(llm, tool, prompt=prompt)

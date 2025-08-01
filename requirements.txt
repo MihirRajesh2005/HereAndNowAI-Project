@@ -4,6 +4,6 @@ gradio
 requests
 PyPDF2
 langchain
-langchain-google-genai
+google-adk
 langchain-community
 langchain-openai

@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-google_api_key = os.getenv("openai_token")
+api_key = os.getenv("openai_token")
 model = "o3-mini-2025-01-31"
 
 def run_langchain():
@@ -14,7 +14,7 @@ def run_langchain():
   """
   llm = ChatOpenAI(
       model=model,
-      api_key=google_api_key,
+      api_key=api_key,
   )
   response = llm.invoke(
       "Explain the concept of deep learning in 2 lines or less."

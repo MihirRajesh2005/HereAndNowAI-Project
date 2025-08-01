@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-google_api_key = os.getenv("openai_token")
+api_key = os.getenv("openai_token")
 model = "o3-mini-2025-01-31"
 
 def simple_chatbot():
@@ -13,7 +13,7 @@ def simple_chatbot():
   exits when the user types 'quit'
   """
   llm = ChatOpenAI(
-    api_key = google_api_key,
+    api_key = api_key,
     model = model
   )
   while True:

@@ -8,7 +8,7 @@ import os
 import ast
 
 load_dotenv()
-google_api_key = os.getenv("openai_token")
+api_key = os.getenv("openai_token")
 model = "o3-mini-2025-01-31"
 
 @tool
@@ -43,7 +43,7 @@ def ai_agent():
     """
     Creates and runs an agent that can use the web_scrap tool.
     """
-    llm = ChatOpenAI(model=model, api_key=google_api_key)
+    llm = ChatOpenAI(model=model, api_key=api_key)
     tool  = [web_scrap]
     prompt = hub.pull("hwchase17/react")
     agent = create_react_agent(llm, tool, prompt=prompt)

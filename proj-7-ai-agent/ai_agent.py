@@ -9,7 +9,7 @@ import ast
 
 load_dotenv()
 api_key = os.getenv("openai_token")
-model = "o4-mini-2025-04-16"
+model = "o3-mini-2025-01-31"
 
 @tool
 def web_scrap(urls: str) -> str:

@@ -5,7 +5,7 @@ import requests
 
 load_dotenv()
 api_key = os.getenv("openai_token")
-model = "gpt-4.1-nano-2025-04-14"
+model = "o3-mini-2025-01-31"
 client = OpenAI(api_key=api_key)
 url = "https://raw.githubusercontent.com/hereandnowai/vac/refs/heads/master/prospectus-context.txt"
 response = requests.get(url)

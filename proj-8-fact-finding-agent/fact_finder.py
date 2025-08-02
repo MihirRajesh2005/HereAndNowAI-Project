@@ -1,14 +1,14 @@
 from langchain_openai import ChatOpenAI
-from langchain.agents import AgentExecutor, create_react_agent
-from langchain import hub
+from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.tools import tool
 from dotenv import load_dotenv
 from langchain_core.rate_limiters import InMemoryRateLimiter
+from langchain.prompts import ChatPromptTemplate
 import os
 
 load_dotenv()
 api_key = os.getenv("openai_token")
-model = "o3-mini-2025-01-31"
+model = "o4-mini"
 
 facts = {
   "capital of france": "Paris",
@@ -34,12 +34,16 @@ def data_retreival():
     max_bucket_size=3
   )
   llm = ChatOpenAI(model=model, 
-                   api_key=api_key, 
-                   request_timeout=120, 
+                   api_key=api_key,
+                   stop=None,
                    rate_limiter=rate_limiter)
   tool = [get_fact]
-  prompt = hub.pull("hwchase17/react")
-  agent = create_react_agent(llm, tool, prompt=prompt)
+  prompt = ChatPromptTemplate.from_messages([
+        ("system", "You are a helpful AI assistant. Use the provided tools when relevant."),
+        ("human", "{input}"),
+        ("ai", "{agent_scratchpad}"),
+    ])
+  agent = create_tool_calling_agent(llm, tool, prompt=prompt)
   agent_executor = AgentExecutor(agent=agent, 
                                  tools=tool, 
                                  verbose = False, 

@@ -4,7 +4,7 @@ import os
 
 load_dotenv()
 api_key = os.getenv("openai_token")
-model = "o3-mini-2025-01-31"
+model = "o4-mini"
 
 client = OpenAI(api_key=api_key)
 ai_teacher = """You are Caramel AI, an AI Teacher at HERE AND NOW AI - Artificial Intelligence Research Institute.
@@ -26,3 +26,4 @@ def get_response(message, history):
     response = client.chat.completions.create(model=model, messages=messages)
     ai_response = response.choices[0].message.content
     return ai_response
+print(get_response("In 6 lines or less, tell me what the difference between a supercharger and a turbocharger is.",[]))

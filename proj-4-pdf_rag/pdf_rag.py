@@ -6,7 +6,7 @@ from openai import OpenAI
 
 load_dotenv()
 api_key = os.getenv("openai_token")
-model = "o3-mini-2025-01-31"
+model = "o4-mini"
 
 client = OpenAI(api_key=api_key)
 

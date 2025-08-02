@@ -1,7 +1,7 @@
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_openai import ChatOpenAI
-from langchain.agents import AgentExecutor, create_react_agent
-from langchain import hub
+from langchain.agents import AgentExecutor, create_tool_calling_agent
+from langchain.prompts import ChatPromptTemplate
 from langchain.tools import tool
 from dotenv import load_dotenv
 import os
@@ -9,7 +9,7 @@ import ast
 
 load_dotenv()
 api_key = os.getenv("openai_token")
-model = "o3-mini-2025-01-31"
+model = "o4-mini"
 
 @tool
 def web_scrap(urls: str) -> str:
@@ -45,10 +45,16 @@ def ai_agent():
     """
     llm = ChatOpenAI(model=model, api_key=api_key)
     tool  = [web_scrap]
-    prompt = hub.pull("hwchase17/react")
-    agent = create_react_agent(llm, tool, prompt=prompt)
-    agent_executor = AgentExecutor(agent=agent, tools=tool, 
-                                   verbose=False, handle_parsing_errors=True)
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", "You are a helpful AI assistant. Use the provided tools when relevant."),
+        ("human", "{input}"),
+        ("ai", "{agent_scratchpad}"),
+    ])
+    agent = create_tool_calling_agent(llm, tool, prompt=prompt)
+    agent_executor = AgentExecutor(agent=agent, 
+                                 tools=tool, 
+                                 verbose = False, 
+                                 handle_parsing_errors=True)
     question = "What is the story of Here and Now AI? The url is https://hereandnowai.com"
     response = agent_executor.invoke({"input":question})
     print(f"Response: {response['output']}")

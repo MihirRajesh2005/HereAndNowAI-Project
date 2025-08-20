@@ -1,0 +1,7 @@
+_pycache_/
+*.py[cod]
+
+.vscode/
+
+*.env
+.env.*

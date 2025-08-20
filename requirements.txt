@@ -1,0 +1,9 @@
+openai
+python-dotenv
+gradio
+requests
+PyPDF2
+langchain
+google-adk
+langchain-community
+langchain-openai
